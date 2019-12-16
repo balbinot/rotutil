@@ -1,2 +1,3 @@
 # rotutil
-Rotation model utilities 
+
+Phenomenological rotation model for spherical systems
