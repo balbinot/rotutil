@@ -283,7 +283,7 @@ class Rotation(object):
 
         if self._kind=="rpeak":
             Rp = self._Rpeak
-            C01 = self._C02(R, w, a, Rp)
+            C01 = self._C01(R, w, a, Rp)
             C02 = self._C02(R, w, a, Rp)
             C22 = self._C22(R, w, a, Rp)
 
