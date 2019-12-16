@@ -313,8 +313,8 @@ if __name__=='__main__':
     Rs = 5.5            # scale radius of Plumar profile
 
     ## Parameters that control the stiching of the two rotation models
-    K = 3
-    Rb = 130/2.
+    K = 0.3       # how quickly the transition happens
+    Rb = 130/2. # where it is centred at
 
     ## Initialize the models with two sets of inclination and PA (two frist parameters in the Rotation() class
     Ms = Rotation(40, 30, kind='solid', w=ws)
