@@ -304,41 +304,45 @@ class Rotation(object):
 
 if __name__=='__main__':
 
-    i = 30
-    PA = 30
+    # Solid body
     ws = 0.015 # This gives 2km/s at 130 pc (on the large side)
 
+    # Violent relax rotation
     Rp = 9.5            # parsec
     wp = 2*3.25/Rp      # 3.25km/s @ Rp
+    Rs = 5.5            # scale radius of Plumar profile
 
-    Rs = 5.5 ## ~ Rh?
-
+    ## Parameters that control the stiching of the two rotation models
     K = 3
     Rb = 130/2.
 
+    ## Initialize the models with two sets of inclination and PA (two frist parameters in the Rotation() class
     Ms = Rotation(40, 30, kind='solid', w=ws)
-    Mp = Rotation(90, 60, kind='rpeak', w=wp, Rpeak=Rp)
-    x, y = np.arange(-120, 120, 1), np.arange(-120, 120, 1)
+    Mp = Rotation(30, 60, kind='rpeak', w=wp, Rpeak=Rp)
+
+    ## Grid where to compute the model in
+    x, y = np.arange(-120, 120, 3), np.arange(-120, 120, 3)
     xx, yy = np.meshgrid(x,y)
     rr = np.sqrt(xx*xx + yy*yy)
 
+    ## Raw 1st moment
     Vs = Ms.m1v(xx, yy, Rs)
     Vp = Mp.m1v(xx, yy, Rs)
 
+    ## 2nd central moment
     VVs = Ms.m2v(xx, yy, Rs)
     VVp = Mp.m2v(xx, yy, Rs)
 
+    ## Do the stiching
     V =  logistic(rr, K, Rb)*Vs + ilogistic(rr, K, Rb)*Vp
     VV = logistic(rr, K, Rb)*VVs + ilogistic(rr, K, Rb)*VVp ## <v^2> = Var = Disp^2
-
     VV = np.sqrt(VV)
-
     VV = np.nan_to_num(VV, 0)
 
+    ## Plot all components.
     import matplotlib.gridspec as gridspec
     plt.figure(figsize=(18, 6))
     gs = gridspec.GridSpec(2, 5)
-
     ras = True
 
     vmin =  None
