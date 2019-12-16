@@ -294,6 +294,7 @@ class Rotation(object):
             vpar = C01 * (x * cos(PA) + y * sin(PA))*cos(i)
             vper = C01 * (-y * cos(PA) + x * sin(PA))*cos(i)
 
+            # since this is the *central* second comment, must remove the first moment squared of each component.
             vvx = C22 * sin(i)**2 * cos(PA)**2 + C02* y*y*cos(i)**2 - vx**2
             vvy = C22 * sin(i)**2 * cos(PA)**2 + C02* x*x*cos(i)**2 - vy**2
             vvz = C02 * (vz/C01)**2 - vz**2
